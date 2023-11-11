@@ -619,6 +619,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCapsule
       objectReference: {fileID: 0}
+    - target: {fileID: 8616685848737228376, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2551,6 +2556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db36dbd0ac4f25e43a71597358e2c7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerShoot: {fileID: -4230716902163990355, guid: 4419d82f33d36e848b3ed5af4c8da37e,
+    type: 3}
   Rcast: {fileID: 68248227}
   LoadOut:
   - {fileID: 672174623}
@@ -2699,6 +2706,7 @@ GameObject:
   - component: {fileID: 672174627}
   - component: {fileID: 672174626}
   - component: {fileID: 672174625}
+  - component: {fileID: 672174628}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: Untagged
@@ -2794,6 +2802,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672174623}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &672174628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672174623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0963a773b8ba64c9b17f10fbd42ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 25
+  RateOfFire: 0.5
+  Sound: {fileID: 0}
+  ammo: 30
+  currentAmmo: 30
+  Automatic: 1
+  ReloadTime: 5
+  Reloading: 0
 --- !u!1 &697563962
 GameObject:
   m_ObjectHideFlags: 0
@@ -10603,6 +10631,7 @@ GameObject:
   - component: {fileID: 1792877919}
   - component: {fileID: 1792877918}
   - component: {fileID: 1792877917}
+  - component: {fileID: 1792877920}
   m_Layer: 8
   m_Name: Pistol
   m_TagString: Untagged
@@ -10697,6 +10726,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792877915}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1792877920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792877915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0963a773b8ba64c9b17f10fbd42ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 30
+  RateOfFire: 1
+  Sound: {fileID: 0}
+  ammo: 15
+  currentAmmo: 15
+  Automatic: 0
+  ReloadTime: 5
+  Reloading: 0
 --- !u!1001 &1839200217
 PrefabInstance:
   m_ObjectHideFlags: 0

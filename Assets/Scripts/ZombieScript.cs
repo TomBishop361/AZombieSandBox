@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class ZombieScript : MonoBehaviour {
 
     int HP;
-    bool alive = true;
     [SerializeField] GameObject destination;
     NavMeshAgent agent;
     Rigidbody rb;
@@ -18,13 +17,10 @@ public class ZombieScript : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
     }
 
-    public void Damaged(int Dmg){
-        Debug.Log("Step1");
-        if (HP > 0){
-            Debug.Log("Step2");
-            HP = -Dmg;
-            if (HP < 0){
-                Debug.Log("Step1");
+    public void Damaged(int Dmg){        
+        if (HP >= 0){            
+            HP -= Dmg;
+            if (HP <= 0){                
                 rb.isKinematic = false;
                 rb.AddForce(new Vector3(1,1,0),ForceMode.Impulse);
                 agent.enabled = false;
