@@ -17,17 +17,6 @@ public class ShootWeapon : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-    void Awake()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-                
-    }
         
     //Checks what input was pressed (1 or 2) then swaps weapon
     void OnSwapWeapon(InputValue Input){
@@ -63,6 +52,7 @@ public class ShootWeapon : MonoBehaviour
             if (hit.transform.CompareTag("Zombie"))
             {
                 Debug.Log("Hit");
+                hit.transform.GetComponent<ZombieScript>().Damaged(150);
                 //call damage calculation                
             }
         }
