@@ -6,13 +6,14 @@ using UnityEngine.AI;
 public class ZombieScript : MonoBehaviour {
 
     int HP;
-    [SerializeField] GameObject destination;
+    GameObject destination;
     NavMeshAgent agent;
     Rigidbody rb;
 
     // Start is called before the first frame update
     void Start(){
         HP = 150;
+        destination = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
     }
@@ -24,6 +25,8 @@ public class ZombieScript : MonoBehaviour {
                 rb.isKinematic = false;
                 rb.AddForce(new Vector3(1,1,0),ForceMode.Impulse);
                 agent.enabled = false;
+                new WaitForSeconds(3);
+                Destroy(gameObject);
             }
         }
     }

@@ -50,7 +50,7 @@ public class ShootWeapon : MonoBehaviour
         }
     }
        
-    
+    //Function called when Gun meets all shooting criteria
     public void Shoot() {
         RaycastHit hit;
         if (Physics.Raycast(Rcast.transform.position, Rcast.transform.forward, out hit, 100f))
@@ -66,7 +66,7 @@ public class ShootWeapon : MonoBehaviour
         LoadOut[EquipWeapon].GetComponent<GunScript>().gun.currentAmmo -= 1;
     }
 
-
+    //OnShoot is called when LMB is pressed
     void OnShoot(){
         //If Can fire & is NOT automatic & Has ammo        
         if (LoadOut[EquipWeapon].GetComponent<GunScript>().gun.Automatic == false && CanFire && LoadOut[EquipWeapon].GetComponent<GunScript>().gun.currentAmmo > 0
@@ -78,6 +78,7 @@ public class ShootWeapon : MonoBehaviour
         }
     }
 
+    //Manages Guns rate of fire
     IEnumerator RoF(float FiredWeaponROF){
         //IsFiring Fixes bug where player can spam Swap weapon to increase Non-Automatic weapons ROF
         isFiring = true;
