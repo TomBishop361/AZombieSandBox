@@ -27,7 +27,7 @@ public class ZomSpawnManager : MonoBehaviour
         while (ZombieCount < TrgtZomCount){
             //X = how many of the nearest Spawn points the spawnManager will call 'SpawnZombie' in)
             int x = 3;            
-            for (int i = 0; x < 3; i++)            {
+            for (int i = 0; i < x; i++)            {
                 Spawners[i].GetComponent<ZombieSpawner>().SpawnZombie();
                 ZombieCount++;
                 

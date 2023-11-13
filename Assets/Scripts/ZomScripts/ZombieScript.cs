@@ -46,14 +46,12 @@ public class ZombieScript : MonoBehaviour {
     }
 
     private void Update(){
-        
-        
+
+        Navigate();
     }
 
     // Update is called once per frame
-    void FixedUpdate(){
-        Navigate();    
-    
+    void FixedUpdate(){       
     }
      
 }
