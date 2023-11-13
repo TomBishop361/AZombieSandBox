@@ -16,12 +16,13 @@ public class GunScript : MonoBehaviour {
     [SerializeField] float ReloadTime;
     public bool Reloading;
 
-
+    
     private void Start()  {        
         gun = new GunClass(Damage,RateOfFire,Sound,ammo,Automatic,ReloadTime,currentAmmo);       
     
     }
 
+    //Gun manages reload
     IEnumerator Reload() {        
         Debug.Log("RELOADING");
         Reloading = true;

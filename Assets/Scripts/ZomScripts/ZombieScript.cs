@@ -18,6 +18,8 @@ public class ZombieScript : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
     }
 
+
+    //Called when Zombie is damaged
     public void Damaged(int Dmg){        
         if (HP >= 0){            
             HP -= Dmg;

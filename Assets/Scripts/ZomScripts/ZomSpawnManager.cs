@@ -20,11 +20,14 @@ public class ZomSpawnManager : MonoBehaviour
         StartCoroutine("SummonZombies");
     }
 
+
+    //Called when zombies should be spawned
     IEnumerator SummonZombies(){
-        
+        //While the number of zombies spawned is less than the Amount that should be spawned    
         while (ZombieCount < TrgtZomCount){
-            for (int i = 0; i < 3; i++)
-            {
+            //X = how many of the nearest Spawn points the spawnManager will call 'SpawnZombie' in)
+            int x = 3;            
+            for (int i = 0; x < 3; i++)            {
                 Spawners[i].GetComponent<ZombieSpawner>().SpawnZombie();
                 ZombieCount++;
                 
@@ -35,7 +38,7 @@ public class ZomSpawnManager : MonoBehaviour
     }
 
     IEnumerator RoundRestart(){
-        //
+        //Resets Variable values, Waits 10 seconds then starts next round buy calling SummonZombies
         float tempfloat = TrgtZomCount;
         TrgtZomCount = (int)(tempfloat * SpawnMultiplier);
         ZombieCount = 0;

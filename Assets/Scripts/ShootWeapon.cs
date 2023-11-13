@@ -89,6 +89,7 @@ public class ShootWeapon : MonoBehaviour
     }
 
    
+    //When the player presses R call the reload subroutine in Equip Gun to reload weapon
     void OnReload() {
         LoadOut[EquipWeapon].GetComponent<GunScript>().StartCoroutine("Reload");
 
