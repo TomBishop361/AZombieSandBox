@@ -6,14 +6,14 @@ public class GunClass
 {
     public int Damage;
     public float RateOfFire;
-    public float Ammo;
+    public int Ammo;
     public AudioClip Sound;
     public bool Automatic;
     public float ReloadTime;
-    public float currentAmmo;
+    public int currentAmmo;
 
 
-    public GunClass(int Dmg,float rof, AudioClip sound, int ammo, bool automatic, float reloadtime, float currentammo)
+    public GunClass(int Dmg,float rof, AudioClip sound, int ammo, bool automatic, float reloadtime, int currentammo)
     {
         Damage = Dmg;
         RateOfFire = rof;

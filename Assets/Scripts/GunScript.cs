@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GunScript : MonoBehaviour {
     // Start is called before the first frame update
+    GameObject UI;
     public GunClass gun;
     [SerializeField] int Damage;
     [SerializeField] float RateOfFire;
@@ -24,6 +25,7 @@ public class GunScript : MonoBehaviour {
         }
 
     private void OnEnable(){
+        UI = GameObject.FindGameObjectWithTag("UI");
         Anim = GetComponent<Animator>();
         Reloading = false;
     }
@@ -56,6 +58,7 @@ public class GunScript : MonoBehaviour {
 
             yield return new WaitForSeconds(gun.ReloadTime);
             gun.currentAmmo = gun.Ammo;
+            UI.GetComponent<UIScript>().UpdateAmmoTxt(gun.currentAmmo);
             Reloading = false;
         }
     }       

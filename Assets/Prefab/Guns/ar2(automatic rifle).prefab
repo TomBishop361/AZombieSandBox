@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0963a773b8ba64c9b17f10fbd42ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UI: {fileID: 1288769099678398783, guid: aeb6be76feb5e464fb64fa6e4f763826, type: 3}
   Damage: 36
   RateOfFire: 0.1
   Sound: {fileID: 0}

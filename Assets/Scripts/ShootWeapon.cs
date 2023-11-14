@@ -12,17 +12,20 @@ public class ShootWeapon : MonoBehaviour
 {
 
     //Pointer Variables    
+    [SerializeField] GameObject UI;
     [SerializeField] private InputActionReference playerShoot;
     [SerializeField] private Camera Rcast;
     public GameObject[] LoadOut = new GameObject[2];
-    int EquipWeapon = 1;
+    public int EquipWeapon = 1;
     float shotcounter;
     bool isFiring;
     bool CanFire = true;
+    int PrevPoints;
     public int Points;
 
     private void Start(){
         Points = 0;
+        PrevPoints = Points;
         Cursor.lockState = CursorLockMode.Locked;
     }
         
@@ -70,6 +73,7 @@ public class ShootWeapon : MonoBehaviour
             }
         }
         LoadOut[EquipWeapon].GetComponent<GunScript>().gun.currentAmmo -= 1;
+        UI.GetComponent<UIScript>().UpdateAmmoTxt(LoadOut[EquipWeapon].GetComponent<GunScript>().gun.currentAmmo);
         LoadOut[EquipWeapon].GetComponent<GunScript>().Fire();
     }
 
@@ -122,11 +126,19 @@ public class ShootWeapon : MonoBehaviour
             }
         }
     }
-   
-    //When the player presses R call the reload subroutine in Equip Gun to reload weapon
-    void OnReload() {
-        LoadOut[EquipWeapon].GetComponent<GunScript>().StartCoroutine("Reload");    
 
+    //When the player presses R call the reload subroutine in Equip Gun to reload weapon
+    void OnReload(){
+        LoadOut[EquipWeapon].GetComponent<GunScript>().StartCoroutine("Reload");
+
+    }
+    private void Update() {
+        if(PrevPoints != Points)
+        {
+            PrevPoints = Points;
+            UI.GetComponent<UIScript>().UpdatePoints(Points);
+        }
+        
     }
 
     private void FixedUpdate(){           

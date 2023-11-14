@@ -25,6 +25,7 @@ public class ZombieScript : MonoBehaviour {
             HP -= Dmg;
             if (HP <= 0){  
                 agent.enabled = false;
+                transform.GetComponent<CapsuleCollider>().enabled = false;
                 Anim.SetTrigger("Dead");
                 destination.GetComponent<ShootWeapon>().Points += 100;
                 StartCoroutine("ClearDead");
