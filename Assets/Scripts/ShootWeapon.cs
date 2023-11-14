@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using Unity.VisualScripting;
 using UnityEngine.Windows;
 using static UnityEngine.InputSystem.InputAction;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ShootWeapon : MonoBehaviour
 {
@@ -18,23 +19,21 @@ public class ShootWeapon : MonoBehaviour
     float shotcounter;
     bool isFiring;
     bool CanFire = true;
+    public int Points;
 
     private void Start(){
+        Points = 0;
         Cursor.lockState = CursorLockMode.Locked;
-
-        //remove below after test
-        
     }
         
     //Checks what input was pressed (1 or 2) then swaps weapon
     void OnSwapWeapon(InputValue Input){        
         //(input.y Keyboard 1 / ScrollWheelUp = 1 | input.y KeyBoard 2 / ScrollWheelDown = -1)
-        if (Input.Get<Vector2>().y < 0)
-        {
-            EquipWeapon = 1;
+        if (Input.Get<Vector2>().y < 0) {            
             if (LoadOut[1] != null && LoadOut[0] != null){
                 LoadOut[0].SetActive(false);
                 LoadOut[1].SetActive(true);
+                EquipWeapon = 1;
                 //Plays Draw Animation For Swapped to weapons
                 LoadOut[EquipWeapon].GetComponent<Animator>().SetTrigger("Idle");
                 LoadOut[EquipWeapon].GetComponent<GunScript>().SwapWeapon();
@@ -44,9 +43,9 @@ public class ShootWeapon : MonoBehaviour
                 }
             } 
         }
-        if (Input.Get<Vector2>().y > 0){
-            EquipWeapon = 0;            
+        if (Input.Get<Vector2>().y > 0){            
             if (LoadOut[1] != null && LoadOut[0] != null){
+                EquipWeapon = 0;
                 LoadOut[1].SetActive(false);
                 LoadOut[0].SetActive(true);
                 //Plays Draw Animation For Swapped to weapons
@@ -67,6 +66,7 @@ public class ShootWeapon : MonoBehaviour
             if (hit.transform.CompareTag("Zombie"))
             {
                 hit.transform.GetComponent<ZombieScript>().Damaged(LoadOut[EquipWeapon].GetComponent<GunScript>().gun.Damage);
+                Points += 10;
             }
         }
         LoadOut[EquipWeapon].GetComponent<GunScript>().gun.currentAmmo -= 1;
@@ -93,6 +93,35 @@ public class ShootWeapon : MonoBehaviour
         isFiring = false;
     }
 
+
+
+    void OnInteract(){
+        RaycastHit hit;
+        if (Physics.Raycast(Rcast.transform.position, Rcast.transform.forward, out hit, 2f))
+        {
+            Debug.DrawLine(Rcast.transform.position, hit.point, Color.red);
+            Debug.Log("Shot " + hit.transform.name);
+            //Call Function to check what weapon is equip and what noise to play
+            if (hit.transform.CompareTag("WallBuy"))
+            {
+                if (Points >= hit.transform.GetComponent<WallBuy>().Cost) {
+                    Points -= hit.transform.GetComponent<WallBuy>().Cost;
+                    if (LoadOut[0] == null)
+                    {
+                        GameObject NewGun = Instantiate(hit.transform.GetComponent<WallBuy>().Gun, Rcast.transform, false);
+                        LoadOut[0] = NewGun;
+                    }
+                    else
+                    {
+                        Destroy(LoadOut[EquipWeapon]);
+                        GameObject NewGun = Instantiate(hit.transform.GetComponent<WallBuy>().Gun, Rcast.transform, false);
+                        LoadOut[EquipWeapon] = NewGun;
+                        NewGun.SetActive(true);
+                    }
+                }
+            }
+        }
+    }
    
     //When the player presses R call the reload subroutine in Equip Gun to reload weapon
     void OnReload() {
@@ -115,9 +144,7 @@ public class ShootWeapon : MonoBehaviour
                 CanFire = false;
                 shotcounter -= Time.deltaTime;
             }
-        }
-        
-        
+        }       
 
     }
 
