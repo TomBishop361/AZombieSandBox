@@ -15,29 +15,30 @@ public class GunScript : MonoBehaviour {
     [SerializeField] bool Automatic;
     [SerializeField] float ReloadTime;
     public bool Reloading;
-    Animation Anim;
+    Animator Anim;
 
     
     private void Start()  {        
         gun = new GunClass(Damage,RateOfFire,Sound,ammo,Automatic,ReloadTime,currentAmmo);
-        //Anim = GetComponent<Animator>();
+        
+        }
 
-
-    }
-
-    private void OnEnable()
-    {
+    private void OnEnable(){
+        Anim = GetComponent<Animator>();
         Reloading = false;
     }
 
-    public void Fire()
-    {
-        GetComponent<Animator>().SetTrigger("Fire");
+    public void Fire(){       
+        if(gun.Ammo == 0){
+            Anim.SetTrigger("Empty");
+        }else
+        {
+            Anim.SetTrigger("Fire");
+        }
     }
 
     public void SwapWeapon(){
-        GetComponent<Animator>().SetTrigger("Swap");
-
+        Anim.SetTrigger("Swap");
     }
 
     //Gun manages reload
@@ -46,19 +47,18 @@ public class GunScript : MonoBehaviour {
             Reloading = true;
             if (gun.currentAmmo == 0)
             {
-                GetComponent<Animator>().SetTrigger("ReloadNoAmmo");
+                Anim.SetTrigger("ReloadNoAmmo");
             }
             else
             {
-                GetComponent<Animator>().SetTrigger("Reload");
+                Anim.SetTrigger("Reload");
             }
 
             yield return new WaitForSeconds(gun.ReloadTime);
             gun.currentAmmo = gun.Ammo;
             Reloading = false;
         }
-    }
-
+    }       
 
 }
 

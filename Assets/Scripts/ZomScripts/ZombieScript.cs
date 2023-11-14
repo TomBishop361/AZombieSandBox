@@ -7,16 +7,14 @@ public class ZombieScript : MonoBehaviour {
 
     int HP;
     GameObject destination;
-    NavMeshAgent agent;
-    Rigidbody rb;
+    NavMeshAgent agent;    
     Animator Anim;
 
     // Start is called before the first frame update
     void Start(){
         HP = 150;
         destination = GameObject.FindGameObjectWithTag("Player");
-        agent = GetComponent<NavMeshAgent>();
-        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();        
         Anim = GetComponent<Animator>();
     }
 
@@ -25,9 +23,7 @@ public class ZombieScript : MonoBehaviour {
         if (HP >= 0){
             Anim.SetTrigger("Damaged");
             HP -= Dmg;
-            if (HP <= 0){                
-                rb.isKinematic = false;
-                rb.AddForce(new Vector3(1,1,0),ForceMode.Impulse);
+            if (HP <= 0){  
                 agent.enabled = false;
                 Anim.SetTrigger("Dead");
                 StartCoroutine("ClearDead");
@@ -35,8 +31,7 @@ public class ZombieScript : MonoBehaviour {
         }
     }
 
-    IEnumerator ClearDead()
-    {
+    IEnumerator ClearDead() {
         yield return new WaitForSeconds(2.5f);
         Destroy(this.gameObject);
     }
@@ -45,7 +40,7 @@ public class ZombieScript : MonoBehaviour {
     void Navigate(){
         if (agent.enabled == true){
             float distance = Vector3.Distance(transform.position, destination.transform.position);
-            if (distance > 3){
+            if (distance > 2){
                 Anim.SetTrigger("Moving");                
                 agent.SetDestination(destination.transform.position);                
             }
