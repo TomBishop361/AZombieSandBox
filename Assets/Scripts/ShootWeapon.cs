@@ -27,7 +27,7 @@ public class ShootWeapon : MonoBehaviour
     }
         
     //Checks what input was pressed (1 or 2) then swaps weapon
-    void OnSwapWeapon(InputValue Input){
+    void OnSwapWeapon(InputValue Input){        
         //(input.y Keyboard 1 / ScrollWheelUp = 1 | input.y KeyBoard 2 / ScrollWheelDown = -1)
         if (Input.Get<Vector2>().y < 0)
         {
@@ -35,8 +35,11 @@ public class ShootWeapon : MonoBehaviour
             if (LoadOut[1] != null && LoadOut[0] != null){
                 LoadOut[0].SetActive(false);
                 LoadOut[1].SetActive(true);
+                //Plays Draw Animation For Swapped to weapons
+                LoadOut[EquipWeapon].GetComponent<Animator>().SetTrigger("Idle");
+                LoadOut[EquipWeapon].GetComponent<GunScript>().SwapWeapon();
                 //Fixes bug where player cant shoot Pistol When swapping weapon
-                if(CanFire == false && isFiring == false){
+                if (CanFire == false && isFiring == false){
                     StartCoroutine(RoF(LoadOut[EquipWeapon].GetComponent<GunScript>().gun.RateOfFire));
                 }
             } 
@@ -46,12 +49,15 @@ public class ShootWeapon : MonoBehaviour
             if (LoadOut[1] != null && LoadOut[0] != null){
                 LoadOut[1].SetActive(false);
                 LoadOut[0].SetActive(true);
+                //Plays Draw Animation For Swapped to weapons
+                LoadOut[EquipWeapon].GetComponent<GunScript>().SwapWeapon();
             }
         }
+        
     }
        
     //Function called when Gun meets all shooting criteria
-    public void Shoot() {
+    public void Shoot() {        
         RaycastHit hit;
         if (Physics.Raycast(Rcast.transform.position, Rcast.transform.forward, out hit, 100f))
         {
@@ -64,15 +70,14 @@ public class ShootWeapon : MonoBehaviour
             }
         }
         LoadOut[EquipWeapon].GetComponent<GunScript>().gun.currentAmmo -= 1;
+        LoadOut[EquipWeapon].GetComponent<GunScript>().Fire();
     }
 
     //OnShoot is called when LMB is pressed
     void OnShoot(){
         //If Can fire & is NOT automatic & Has ammo        
         if (LoadOut[EquipWeapon].GetComponent<GunScript>().gun.Automatic == false && CanFire && LoadOut[EquipWeapon].GetComponent<GunScript>().gun.currentAmmo > 0
-            && !LoadOut[EquipWeapon].GetComponent<GunScript>().Reloading)
-        {
-            Debug.Log("OnShoot() IF STATEMTN ");            
+            && !LoadOut[EquipWeapon].GetComponent<GunScript>().Reloading){               
             Shoot();
             StartCoroutine(RoF(LoadOut[EquipWeapon].GetComponent<GunScript>().gun.RateOfFire));
         }
@@ -91,7 +96,7 @@ public class ShootWeapon : MonoBehaviour
    
     //When the player presses R call the reload subroutine in Equip Gun to reload weapon
     void OnReload() {
-        LoadOut[EquipWeapon].GetComponent<GunScript>().StartCoroutine("Reload");
+        LoadOut[EquipWeapon].GetComponent<GunScript>().StartCoroutine("Reload");    
 
     }
 
