@@ -15,6 +15,7 @@ public class ZombieScript : MonoBehaviour {
     NavMeshAgent agent;    
     Animator Anim;
     NavMeshPath path;
+    NavMeshPath DistPath;
 
     // Start is called before the first frame update
     void Start(){
@@ -49,14 +50,17 @@ public class ZombieScript : MonoBehaviour {
     }
 
     //If further than 3m and alive navigate to player
-    void Navigate(){        
+    void Navigate(){
+        Debug.Log("WORKING");
         agent.CalculatePath(destination.transform.position, path);
         switch (path.status){   
-            case NavMeshPathStatus.PathComplete:                 
+            case NavMeshPathStatus.PathComplete:
+                Debug.Log("PathComplete");
                 if (agent.enabled == true){
                     Debug.Log("PathComplete");
                     if (destination != Player){
-                        destination = Player;
+                        Debug.Log("Destination Player");
+                        destination = Player;                        
                     }
                     float distance = Vector3.Distance(transform.position, destination.transform.position);
                     if (distance > 2)
@@ -68,14 +72,15 @@ public class ZombieScript : MonoBehaviour {
                     {
                         Anim.SetTrigger("Idle");
                         agent.SetDestination(transform.position);
-                    }
+                    }                   
                 }
-             break;
+                Debug.Log("Break");
+                break;
             case NavMeshPathStatus.PathPartial:
                 Debug.Log("Partial");                
                 if (agent.enabled == true){
-                    destination = Windows[0];
-                    Debug.Log("PUMPKINN");
+                    Debug.Log("Destination Window");
+                    destination = Windows[0];                    
                     float distance = Vector3.Distance(transform.position, destination.transform.position);
                     if (distance > 2)
                     {
@@ -88,11 +93,17 @@ public class ZombieScript : MonoBehaviour {
                         agent.SetDestination(transform.position);
                     }
                 }
+                Debug.Log("Break");
                 break;
-               
+            case NavMeshPathStatus.PathInvalid:
+                Debug.Log("Invalid");
+                destination = Player;
+                break;
         }        
-        
     }
+
+     
+
 
     private void Update(){
         Windows = Windows.OrderBy((d) => (d.transform.position - transform.position).sqrMagnitude).ToArray();
