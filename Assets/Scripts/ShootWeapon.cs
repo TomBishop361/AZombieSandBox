@@ -22,6 +22,7 @@ public class ShootWeapon : MonoBehaviour
     bool CanFire = true;
     int PrevPoints;
     public int Points;
+    public bool Repairable;
 
     private void Start(){
         Points = 0;

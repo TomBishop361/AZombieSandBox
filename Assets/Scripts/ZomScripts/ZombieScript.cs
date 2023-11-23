@@ -102,7 +102,10 @@ public class ZombieScript : MonoBehaviour {
         }        
     }
 
-     
+     public void Attack(){
+        Debug.Log("Attack");
+        Anim.SetTrigger("Attack");
+    }
 
 
     private void Update(){

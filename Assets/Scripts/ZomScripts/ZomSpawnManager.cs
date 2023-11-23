@@ -53,7 +53,7 @@ public class ZomSpawnManager : MonoBehaviour
         //This Orders the array from closest to player to furthest
         Spawners = Spawners.OrderBy((d) => (d.transform.position - Player.transform.position).sqrMagnitude).ToArray();
         AliveZombies = GameObject.FindGameObjectsWithTag("Zombie");
-        if (AliveZombies.Length <= 0 && ZombieCount <= TrgtZomCount && !Restarting)
+        if (AliveZombies.Length <= 0 && ZombieCount >= TrgtZomCount && !Restarting)
         {
             Restarting = true;
             Debug.Log("RESTART ROUND");
