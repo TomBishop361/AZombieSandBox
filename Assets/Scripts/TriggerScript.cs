@@ -31,7 +31,7 @@ public class TriggerScript : MonoBehaviour
     private void Update(){
         if(transform.tag == ("Zombie")){
             if (ZomAttack){
-                transform.GetComponent<ZombieScript>().Attack();
+                transform.GetComponent<ZombieScript>().AttackBarrier();
             }
         }
     }

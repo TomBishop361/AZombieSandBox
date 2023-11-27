@@ -16,9 +16,11 @@ public class ZombieScript : MonoBehaviour {
     Animator Anim;
     NavMeshPath path;
     NavMeshPath DistPath;
+    bool Attacking;
 
     // Start is called before the first frame update
     void Start(){
+        Attacking = false;
         HP = 150;        
         Windows = GameObject.FindGameObjectsWithTag("Window");
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -38,7 +40,7 @@ public class ZombieScript : MonoBehaviour {
                 agent.enabled = false;
                 transform.GetComponent<CapsuleCollider>().enabled = false;
                 Anim.SetTrigger("Dead");
-                destination.GetComponent<ShootWeapon>().Points += 100;
+                Player.GetComponent<ShootWeapon>().Points += 100;
                 StartCoroutine("ClearDead");
             }
         }
@@ -67,12 +69,21 @@ public class ZombieScript : MonoBehaviour {
                     {
                         Anim.SetTrigger("Moving");
                         agent.SetDestination(destination.transform.position);
+                        
+                    }
+                    else if( distance < 2 && destination == Player) {                        
+                        Anim.SetTrigger("Idle");
+                        agent.SetDestination(transform.position);
+                        if (!Attacking){
+                            StartCoroutine("Attack");
+                        }
+                        
                     }
                     else
                     {
                         Anim.SetTrigger("Idle");
                         agent.SetDestination(transform.position);
-                    }                   
+                    }
                 }
                 Debug.Log("Break");
                 break;
@@ -101,16 +112,33 @@ public class ZombieScript : MonoBehaviour {
                 break;
         }        
     }
+    
+    IEnumerator Attack() {
+        Attacking = true;
+        Anim.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.5f);
+        Player.GetComponent<PlayerHealthScript>().Attacked();
+        while (Attacking){
+            agent.enabled = false;            
+            yield return new WaitForSeconds(2);
+            Attacking = false;
+        }
+        agent.enabled = true;
+       }
 
-     public void Attack(){
-        Debug.Log("Attack");
+    public void AttackBarrier()
+    {
         Anim.SetTrigger("Attack");
     }
 
 
     private void Update(){
         Windows = Windows.OrderBy((d) => (d.transform.position - transform.position).sqrMagnitude).ToArray();
-        Navigate();
+        if(agent.enabled == true)
+        {
+            Navigate();
+        }
+        
     }
 
     // Update is called once per frame

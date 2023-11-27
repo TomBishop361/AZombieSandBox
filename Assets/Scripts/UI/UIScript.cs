@@ -15,6 +15,7 @@ public class UIScript : MonoBehaviour
     private void Start(){
         AmmoUI.text = ("15");
         PointsUI.text = ("0");
+        HealthUI.text = ("100");
     }
 
 
@@ -26,5 +27,9 @@ public class UIScript : MonoBehaviour
         AmmoUI.text = AmmoCount.ToString();
     }   
   
+
+    public void UpdateHealthTxt(int Health){
+        HealthUI.text = Health.ToString();
+    }
     
 }
