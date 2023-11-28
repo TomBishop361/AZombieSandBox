@@ -1,12 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Events;
-using Unity.VisualScripting;
-using UnityEngine.Windows;
-using static UnityEngine.InputSystem.InputAction;
-using UnityEngine.SocialPlatforms.Impl;
 
 //Weapon Managment Script   
 public class ShootWeapon : MonoBehaviour

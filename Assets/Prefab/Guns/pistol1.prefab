@@ -2072,14 +2072,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0963a773b8ba64c9b17f10fbd42ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI: {fileID: 1288769099678398783, guid: aeb6be76feb5e464fb64fa6e4f763826, type: 3}
-  Damage: 35
-  RateOfFire: 0.17
-  Sound: {fileID: 0}
-  ammo: 15
-  currentAmmo: 15
-  Automatic: 0
-  ReloadTime: 2.2
+  gun:
+    Damage: 35
+    RateOfFire: 0.17
+    Ammo: 15
+    Sound: {fileID: 0}
+    Automatic: 0
+    ReloadTime: 2.2
+    currentAmmo: 15
   Reloading: 0
 --- !u!95 &712787597663757344
 Animator:

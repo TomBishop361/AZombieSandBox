@@ -1,40 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[Serializable]
 public class GunClass
 {
-    public int Damage;
-    public float RateOfFire;
-    public int Ammo;
-    public AudioClip Sound;
-    public bool Automatic;
-    public float ReloadTime;
-    public int currentAmmo;
-
-
-    public GunClass(int Dmg,float rof, AudioClip sound, int ammo, bool automatic, float reloadtime, int currentammo)
-    {
-        Damage = Dmg;
-        RateOfFire = rof;
-        Sound = sound;
-        Ammo = ammo;
-        Automatic = automatic;
-        ReloadTime = reloadtime;
-        currentAmmo = currentammo;
-    }
-
-
-
-    //Constructor
-    public GunClass(){
-        Damage = 30;
-        RateOfFire = 1f;
-        Sound = null;
-        Automatic = false;
-        Ammo = 15;
-    }
-
+    public int Damage = 30;
+    public float RateOfFire = 1f;
+    public int Ammo = 0;
+    public AudioClip Sound = null;
+    public bool Automatic = false;
+    public float ReloadTime = 0;
+    [HideInInspector] public int currentAmmo = 0;   
 
 }
    
